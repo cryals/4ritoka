@@ -15,6 +15,7 @@ http://{$FABRIQ_DOMAIN:localhost} {
   redir @docsNoSlash /docs/ 308
 
   handle_path /preza* {
+    header Cache-Control "no-cache, must-revalidate"
     root * /srv/preza
     file_server
   }
