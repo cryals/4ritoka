@@ -7,7 +7,7 @@ export default async function LoginPage() {
   return (
     <main className="auth-page">
       <section className="auth-intro" aria-label="Fabriq introduction">
-        <p className="eyebrow">Fabriq / DES engine / 01</p>
+        <p className="context-line">Fabriq · дискретно-событийная модель производства</p>
         <div className="auth-word">
           Make
           <br />

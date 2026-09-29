@@ -31,7 +31,6 @@ export function AuthForm() {
 
   return (
     <div className="auth-panel-inner">
-      <p className="eyebrow">Production simulation workspace</p>
       <h1 className="page-title">{mode === "login" ? "Войти" : "Создать доступ"}</h1>
       <p className="lede">Сценарии, расчёты и история запусков в одном рабочем контуре.</p>
       <form className="form" onSubmit={submit}>

@@ -10,7 +10,6 @@ export default async function NewRunPage() {
   return (
     <section className="section split">
       <div>
-        <p className="eyebrow">Execution / queued worker</p>
         <h1 className="page-title">
           Новый
           <br />

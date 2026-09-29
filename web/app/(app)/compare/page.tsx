@@ -11,7 +11,6 @@ export default async function ComparePage() {
     <ComparisonWorkbench runs={runs} />
   ) : (
     <section className="section">
-      <p className="eyebrow">Comparison unavailable</p>
       <h1 className="page-title">
         Нужно два
         <br />

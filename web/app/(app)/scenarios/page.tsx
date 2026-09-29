@@ -14,7 +14,6 @@ export default async function ScenariosPage() {
     <>
       <section className="hero">
         <div>
-          <p className="eyebrow">Input models / editable JSON</p>
           <h1 className="display">
             Сценарии
             <br />
@@ -32,7 +31,7 @@ export default async function ScenariosPage() {
       <section className="section">
         <div className="section-head">
           <h2 className="section-title">Сохранённые</h2>
-          <span className="section-index">({String(scenarios.length).padStart(2, "0")})</span>
+          <span className="item-count">{scenarios.length} сценариев</span>
         </div>
         {scenarios.length ? (
           <div className="list">
@@ -55,7 +54,7 @@ export default async function ScenariosPage() {
       <section className="section">
         <div className="section-head">
           <h2 className="section-title">Базовые модели</h2>
-          <span className="section-index">({String(presets.length).padStart(2, "0")})</span>
+          <span className="item-count">{presets.length} шаблонов</span>
         </div>
         <div className="list">
           {presets.map((preset) => (

@@ -41,8 +41,8 @@ export function RunView({ initialRun }: { initialRun: SimulationRun }) {
         </Link>
         <div className="section-head" style={{ marginTop: 30 }}>
           <div>
-            <p className="eyebrow">
-              Run {run.id.slice(0, 8)} / {dateTime(run.createdAt)}
+            <p className="context-line">
+              Запуск {run.id.slice(0, 8)} · {dateTime(run.createdAt)}
             </p>
             <h1 className="page-title">{run.scenarioName}</h1>
           </div>
@@ -91,13 +91,11 @@ export function RunView({ initialRun }: { initialRun: SimulationRun }) {
           <section className="section">
             <div className="section-head">
               <h2 className="section-title">Динамика</h2>
-              <span className="section-index">(01)</span>
             </div>
             <ResultCharts result={result} />
           </section>
           <section className="section split">
             <div>
-              <p className="eyebrow">Engine assessment</p>
               <h2 className="section-title">Рекомендации</h2>
             </div>
             <ol>
@@ -109,7 +107,6 @@ export function RunView({ initialRun }: { initialRun: SimulationRun }) {
           <section className="section">
             <div className="section-head">
               <h2 className="section-title">Детали</h2>
-              <span className="section-index">(02)</span>
             </div>
             <div className="tabs" role="tablist" aria-label="Result details">
               {(["stages", "machines", "batches", "events"] as const).map((item) => (
@@ -130,7 +127,6 @@ export function RunView({ initialRun }: { initialRun: SimulationRun }) {
           <section className="section">
             <div className="section-head">
               <h2 className="section-title">Экспорт</h2>
-              <span className="section-index">(03)</span>
             </div>
             <div className="form-actions">
               {(["json", "csv", "md"] as const).map((format) => (

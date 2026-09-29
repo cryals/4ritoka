@@ -112,7 +112,6 @@ export function ScenarioEditor({
       <section className="section">
         <div className="section-head">
           <h1 className="page-title">{scenario ? "Редактор" : "Новый сценарий"}</h1>
-          <span className="section-index">(01)</span>
         </div>
         <div className="split">
           <div className="form">
@@ -202,7 +201,6 @@ export function ScenarioEditor({
         <section className="section">
           <div className="section-head">
             <h2 className="section-title">Линия</h2>
-            <span className="section-index">(02)</span>
           </div>
           <ScenarioPipeline config={parsed} />
         </section>

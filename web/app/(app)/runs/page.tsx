@@ -13,7 +13,6 @@ export default async function RunsPage() {
     <>
       <section className="hero">
         <div>
-          <p className="eyebrow">Execution ledger / SQLite</p>
           <h1 className="display">
             История
             <br />
@@ -33,7 +32,7 @@ export default async function RunsPage() {
       <section className="section">
         <div className="section-head">
           <h2 className="section-title">Все запуски</h2>
-          <span className="section-index">({String(runs.length).padStart(2, "0")})</span>
+          <span className="item-count">{runs.length} записей</span>
         </div>
         <RunList runs={runs} />
       </section>

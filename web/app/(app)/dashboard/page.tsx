@@ -16,7 +16,6 @@ export default async function DashboardPage() {
     <>
       <section className="hero">
         <div>
-          <p className="eyebrow">Fabriq operational model / live workspace</p>
           <h1 className="display">
             Производство
             <br />
@@ -36,7 +35,6 @@ export default async function DashboardPage() {
       <section className="section">
         <div className="section-head">
           <h2 className="section-title">Последний срез</h2>
-          <span className="section-index">(01)</span>
         </div>
         <div className="metric-strip">
           <div className="metric">
@@ -62,7 +60,6 @@ export default async function DashboardPage() {
 
       <section className="section split">
         <div>
-          <p className="eyebrow">Состояние пространства</p>
           <h2 className="section-title">
             {scenarios.length} сценариев
             <br />

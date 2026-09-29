@@ -5,7 +5,6 @@ export default function ErrorPage({ reset }: { error: Error & { digest?: string 
     <main className="main">
       <section className="hero">
         <div>
-          <p className="eyebrow">Application error</p>
           <h1 className="display">
             Поток
             <br />

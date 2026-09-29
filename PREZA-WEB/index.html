@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ru">
   <head>
+    <!-- deslop-ignore-file 30 -- remaining numbers are ordered slides, workflows, scales, and measured axes -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f7f7f5" />
@@ -19,7 +20,7 @@
 
           <div class="cover-grid">
             <div class="cover-copy">
-              <p class="eyebrow">Discrete-event production simulation</p>
+              <p class="cover-context">Дискретно-событийное моделирование производства</p>
               <h1 class="display-title">FAB<br />RIQ</h1>
             </div>
             <div class="cover-statement">
@@ -39,7 +40,6 @@
         <div class="slide-frame">
           <header class="slide-meta"><span>Контекст</span><span>02 — 09</span></header>
           <div class="headline-row">
-            <p class="eyebrow">Почему это важно</p>
             <h2 class="slide-title">Ошибка в модели дешевле ошибки в цехе</h2>
           </div>
 
@@ -47,17 +47,14 @@
             <p class="problem-number" aria-hidden="true">?</p>
             <div class="problem-list">
               <article>
-                <span class="item-index">01</span>
                 <h3>Очереди проявляются поздно</h3>
                 <p>Узкое место становится заметно, когда линия уже теряет время и выпуск.</p>
               </article>
               <article>
-                <span class="item-index">02</span>
                 <h3>Поломки меняют весь поток</h3>
                 <p>Локальный простой станка влияет на ожидание партий и загрузку следующих этапов.</p>
               </article>
               <article>
-                <span class="item-index">03</span>
                 <h3>Решения трудно сравнивать</h3>
                 <p>Без повторяемого эксперимента нельзя отделить эффект настройки от случайности.</p>
               </article>
@@ -71,7 +68,6 @@
           <header class="slide-meta"><span>Исследовательская задача</span><span>03 — 09</span></header>
           <div class="goal-layout">
             <div>
-              <p class="eyebrow">Цель проекта</p>
               <h2 class="slide-title">Проверять производственные решения до внедрения</h2>
               <p class="lead">Fabriq превращает конфигурацию линии в воспроизводимый эксперимент с измеримым результатом.</p>
             </div>
@@ -90,7 +86,6 @@
           <header class="slide-meta"><span>Решение</span><span>04 — 09</span></header>
           <div class="solution-layout">
             <div>
-              <p class="eyebrow">Fabriq workspace</p>
               <h2 class="slide-title">От сценария — к решению</h2>
               <p class="lead">Один рабочий контур для настройки линии, запуска симуляции и анализа результата.</p>
             </div>
@@ -109,16 +104,15 @@
         <div class="slide-frame">
           <header class="slide-meta"><span>Техническая реализация</span><span>05 — 09</span></header>
           <div class="headline-row headline-row--compact">
-            <p class="eyebrow">Tech stack</p>
             <h2 class="slide-title">Стек проекта: пять ролей</h2>
           </div>
 
           <div class="stack-grid" aria-label="Стек проекта Fabriq">
-            <article class="stack-node stack-node--primary"><span>01 · FRONTEND</span><strong>Next.js</strong><small>TypeScript<br>UI + REST routes</small></article>
-            <article class="stack-node"><span>02 · API</span><strong>FastAPI</strong><small>Python<br>HTTP contract</small></article>
-            <article class="stack-node"><span>03 · DATA</span><strong>SQLite</strong><small>WAL<br>History + queue</small></article>
-            <article class="stack-node"><span>04 · ENGINE</span><strong>Python</strong><small>Simulation<br>Events + metrics</small></article>
-            <article class="stack-node stack-node--dark"><span>05 · OPS</span><strong>Docker</strong><small>Compose<br>Caddy + logs</small></article>
+            <article class="stack-node stack-node--primary"><span>FRONTEND</span><strong>Next.js</strong><small>TypeScript<br>UI + REST routes</small></article>
+            <article class="stack-node"><span>API</span><strong>FastAPI</strong><small>Python<br>HTTP contract</small></article>
+            <article class="stack-node"><span>DATA</span><strong>SQLite</strong><small>WAL<br>History + queue</small></article>
+            <article class="stack-node"><span>ENGINE</span><strong>Python</strong><small>Simulation<br>Events + metrics</small></article>
+            <article class="stack-node stack-node--dark"><span>OPS</span><strong>Docker</strong><small>Compose<br>Caddy + logs</small></article>
           </div>
 
           <div class="benchmark-strip" aria-label="Результаты предварительного параллельного теста">
@@ -146,7 +140,6 @@
         <div class="slide-frame">
             <header class="slide-meta"><span>Внутри расчёта</span><span>06 — 09</span></header>
           <div class="headline-row headline-row--compact">
-            <p class="eyebrow">Simulation loop</p>
             <h2 class="slide-title">Как эксперимент превращается в метрики</h2>
           </div>
 
@@ -163,7 +156,6 @@
         <div class="slide-frame">
           <header class="slide-meta"><span>Основной сценарий</span><span>07 — 09</span></header>
           <div class="headline-row headline-row--compact">
-            <p class="eyebrow">User flow</p>
             <h2 class="slide-title">Шесть шагов до сравнимого результата</h2>
           </div>
 
@@ -183,7 +175,6 @@
           <header class="slide-meta"><span>Работа приложения</span><span>08 — 09</span></header>
           <div class="interface-layout">
             <div>
-              <p class="eyebrow">Web interface</p>
               <h2 class="slide-title">Результат читается сверху вниз</h2>
               <p class="lead">Сначала ключевые показатели, затем динамика и детальные данные для проверки вывода.</p>
               <div class="interface-points">
@@ -212,7 +203,6 @@
           <header class="slide-meta"><span>Итоги проекта</span><span>09 — 09</span></header>
           <div class="results-layout">
             <div>
-              <p class="eyebrow">Доказано тестами</p>
               <h2 class="slide-title">Проверенные результаты и запас роста</h2>
               <p class="lead">Fabriq уже работает как автономное web-приложение. Нагрузка на интерфейс, очередь и Python-расчёты масштабируется независимо.</p>
             </div>
@@ -234,7 +224,6 @@
             <div class="scale-label scale-label--end"><span>Дальше</span><strong>Без потолка одного сервера</strong></div>
           </div>
           <p class="method-note">* Локальный тест базового сценария: 20 запросов / 0,88 с. Это предварительный ориентир, не production SLA.</p>
-          <p class="closing">Каждый слой масштабируется независимо.</p>
         </div>
       </section>
     </main>

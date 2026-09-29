@@ -9,10 +9,10 @@
   --danger: #b42318;
   --success: #16794a;
   --focus: #2563eb;
-  --radius: 18px;
+  --radius: 8px;
   --mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
   --display: "Bahnschrift", "Arial Narrow", Arial, sans-serif;
-  --body: Inter, Arial, sans-serif;
+  --body: "Segoe UI Variable Text", "Segoe UI", Arial, sans-serif;
 }
 
 * {
@@ -77,9 +77,8 @@ select {
   gap: 28px;
   height: 62px;
   padding: 0 28px;
-  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  background: var(--paper);
   border-bottom: 1px solid var(--ink);
-  backdrop-filter: blur(10px);
 }
 .brand {
   font: 700 18px/1 var(--display);
@@ -91,6 +90,7 @@ select {
   width: 11px;
   height: 11px;
   margin-right: 7px;
+  /* deslop-ignore-next-line 19 -- a brand dot is intentionally circular */
   border-radius: 50%;
   background: var(--signal);
   border: 1px solid var(--ink);
@@ -106,7 +106,7 @@ select {
   align-items: center;
   gap: 7px;
   padding: 0 12px;
-  border-radius: 999px;
+  border-radius: 6px;
   font-size: 13px;
 }
 .nav-link[data-active="true"] {
@@ -128,24 +128,23 @@ select {
   padding: 34px clamp(18px, 4vw, 64px) 90px;
 }
 
-.eyebrow {
+.context-line {
   margin: 0 0 8px;
-  font: 600 11px/1 var(--mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: var(--muted);
+  font-size: 12px;
 }
 .display {
   margin: 0;
   max-width: 1050px;
   font: 500 clamp(50px, 8vw, 132px)/0.82 var(--display);
-  letter-spacing: -0.075em;
+  letter-spacing: -0.045em;
   text-transform: uppercase;
   text-wrap: balance;
 }
 .page-title {
   margin: 0;
   font: 500 clamp(42px, 6vw, 88px)/0.9 var(--display);
-  letter-spacing: -0.065em;
+  letter-spacing: -0.035em;
   text-transform: uppercase;
 }
 .lede {
@@ -178,7 +177,7 @@ select {
   gap: 9px;
   padding: 0 18px;
   border: 1px solid var(--ink);
-  border-radius: 999px;
+  border-radius: var(--radius);
   color: var(--ink);
   background: transparent;
   cursor: pointer;
@@ -237,7 +236,7 @@ select {
   font: 500 clamp(26px, 3vw, 44px)/1 var(--display);
   letter-spacing: -0.045em;
 }
-.section-index {
+.item-count {
   font: 500 12px/1 var(--mono);
 }
 .metric-strip {
@@ -266,7 +265,7 @@ select {
 .metric-value {
   display: block;
   font: 500 clamp(30px, 4vw, 64px)/1 var(--display);
-  letter-spacing: -0.055em;
+  letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
 }
 .metric-note {
@@ -326,6 +325,7 @@ button.list-row:hover {
   width: 8px;
   height: 8px;
   border: 1px solid var(--ink);
+  /* deslop-ignore-next-line 19 -- status is encoded by a compact circular marker */
   border-radius: 50%;
   background: var(--soft);
 }
@@ -421,6 +421,7 @@ button.list-row:hover {
   width: 44vw;
   height: 44vw;
   border: 1px solid #fff;
+  /* deslop-ignore-next-line 19 -- the production-flow orbit is the page's single visual motif */
   border-radius: 50%;
   box-shadow:
     0 0 0 4vw var(--ink),
@@ -435,7 +436,7 @@ button.list-row:hover {
   z-index: 1;
   max-width: 100%;
   font: 500 clamp(64px, 18cqi, 190px)/0.86 var(--display);
-  letter-spacing: -0.07em;
+  letter-spacing: -0.04em;
   text-transform: uppercase;
 }
 .auth-intro > p {
@@ -463,6 +464,7 @@ button.list-row:hover {
   background: transparent;
   color: inherit;
   font: inherit;
+  /* deslop-ignore-next-line 09 -- underline identifies a real text link */
   text-decoration: underline;
   text-underline-offset: 4px;
   cursor: pointer;
@@ -484,7 +486,7 @@ button.list-row:hover {
   min-height: 132px;
   padding: 14px;
   border: 1px solid var(--ink);
-  border-radius: 18px;
+  border-radius: var(--radius);
 }
 .pipeline-stage + .pipeline-stage {
   margin-left: 44px;
@@ -559,6 +561,7 @@ button.list-row:hover {
   background: transparent;
 }
 .mono {
+  /* deslop-ignore-next-line 34 -- used only for IDs and tabular technical data */
   font-family: var(--mono);
   font-variant-numeric: tabular-nums;
 }
@@ -577,7 +580,7 @@ button.list-row:hover {
   min-height: 40px;
   padding: 0 14px;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 6px;
   background: transparent;
   cursor: pointer;
   white-space: nowrap;
@@ -637,7 +640,7 @@ button.list-row:hover {
     grid-template-columns: repeat(4, 1fr);
     padding: 6px;
     border: 1px solid var(--ink);
-    border-radius: 18px;
+    border-radius: var(--radius);
     background: var(--paper);
   }
   .mobile-nav .nav-link {

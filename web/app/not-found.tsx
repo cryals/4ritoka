@@ -5,7 +5,7 @@ export default function NotFound() {
     <main className="main">
       <section className="hero">
         <div>
-          <p className="eyebrow">404 / not found</p>
+          <p className="context-line">Ошибка 404</p>
           <h1 className="display">
             Здесь
             <br />

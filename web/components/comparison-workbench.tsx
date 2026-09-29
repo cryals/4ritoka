@@ -59,7 +59,6 @@ export function ComparisonWorkbench({ runs }: { runs: SimulationRun[] }) {
     <>
       <section className="section split">
         <div>
-          <p className="eyebrow">Comparison set / 2—10 runs</p>
           <h1 className="page-title">
             Сравнить
             <br />
@@ -104,7 +103,6 @@ export function ComparisonWorkbench({ runs }: { runs: SimulationRun[] }) {
         <section className="section">
           <div className="section-head">
             <h2 className="section-title">Результат</h2>
-            <span className="section-index">(01)</span>
           </div>
           <ComparisonChart rows={rows} />
           <div className="table-wrap">
