@@ -8,8 +8,8 @@ const config = {
   url: process.env.DOCS_SITE_URL || 'https://ritoka.stopco.ru',
   baseUrl: process.env.DOCS_BASE_URL || '/docs/',
 
-  organizationName: 'cryals',
-  projectName: '4ritoka',
+  organizationName: 'Rotorino',
+  projectName: 'Fabriq',
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
@@ -61,7 +61,7 @@ const config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/cryals/4ritoka',
+          href: 'https://github.com/Rotorino/Fabriq/tree/Dev',
           label: 'GitHub',
           position: 'right',
         },
@@ -88,7 +88,7 @@ const config = {
           items: [
             {
               label: 'Репозиторий',
-              href: 'https://github.com/cryals/4ritoka',
+              href: 'https://github.com/Rotorino/Fabriq/tree/Dev',
             },
             {
               label: 'Рабочее приложение',

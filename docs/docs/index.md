@@ -51,7 +51,7 @@ Next.js API ── сохраняет run со статусом pending ──�
 - [Fabriq Web](https://ritoka.stopco.ru/fabriq)
 - [Презентация](https://ritoka.stopco.ru/preza/)
 - [Swagger Python API](https://ritoka.stopco.ru/python-api/docs)
-- [Исходный код](https://github.com/cryals/4ritoka)
+- [Исходный код](https://github.com/Rotorino/Fabriq/tree/Dev)
 
 ## Быстрый локальный запуск
 
