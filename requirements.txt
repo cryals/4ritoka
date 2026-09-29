@@ -1,5 +1,5 @@
 pytest>=8.0
 PyYAML>=6.0
-streamlit>=1.35.0
-plotly>=5.20.0
-pandas>=2.2.0
+fastapi>=0.116,<1.0
+uvicorn[standard]>=0.35,<1.0
+httpx>=0.28,<1.0

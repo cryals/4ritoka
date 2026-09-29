@@ -4,6 +4,10 @@ const sidebars = {
   coreSidebar: [
     'index',
     'USER_GUIDE',
+    'web-application',
+    'python-api',
+    'deployment',
+    'presentation',
     'DEVELOPER_GUIDE',
     'architecture',
     'scenario-module',

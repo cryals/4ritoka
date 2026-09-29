@@ -1,0 +1,15 @@
+.git
+.github
+.venv
+**/__pycache__
+**/*.pyc
+web/node_modules
+web/.next
+docs/node_modules
+docs/build
+results
+logs
+temp_results
+*.db
+*.db-wal
+*.db-shm

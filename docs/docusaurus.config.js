@@ -5,8 +5,8 @@ const config = {
   tagline: 'Документация ядра моделирования производственных процессов',
   favicon: 'img/favicon.ico',
 
-  url: 'https://Rotorino.github.io',
-  baseUrl: '/Fabriq/',
+  url: process.env.DOCS_SITE_URL || 'https://ritoka.stopco.ru',
+  baseUrl: process.env.DOCS_BASE_URL || '/Fabriq/',
 
   organizationName: 'Rotorino',
   projectName: 'Fabriq',

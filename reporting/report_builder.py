@@ -35,10 +35,17 @@ def build_report(
     """Build and export the final JSON, CSV, and TXT reports."""
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
-    bottleneck = _detect_bottleneck(analytics)
-    problem_stages = _collect_problem_stages(analytics)
-    recommendations = _generate_recommendations(analytics, bottleneck, problem_stages)
-    performance_insights = _generate_performance_insights(analytics)
+    report = build_report_payload(
+        result=result,
+        analytics=analytics,
+        scenario_description=scenario_description,
+        chart_paths=chart_paths,
+    )
+    bottleneck = report.bottleneck
+    problem_stages = report.problem_stages
+    recommendations = report.recommendations
+    performance_insights = report.performance_insights
+    serialized_chart_paths = report.charts
     summary = _build_summary(
         analytics,
         scenario_description,
@@ -46,7 +53,7 @@ def build_report(
         problem_stages,
         recommendations,
         performance_insights,
-        [str(path) for path in chart_paths or []],
+        serialized_chart_paths,
     )
     markdown_summary = _build_markdown_summary(
         analytics,
@@ -55,9 +62,33 @@ def build_report(
         problem_stages,
         recommendations,
         performance_insights,
-        [str(path) for path in chart_paths or []],
+        serialized_chart_paths,
     )
-    report = ScenarioReport(
+    csv_path = export_csv(analytics, output_path / "metrics.csv")
+    txt_path = export_text(summary, output_path / "summary.txt")
+    md_path = export_markdown(markdown_summary, output_path / "summary.md")
+    report.files = ReportFiles(
+        json=str(output_path / "report.json"),
+        csv=str(csv_path),
+        txt=str(txt_path),
+        md=str(md_path),
+    )
+    export_json(report, output_path / "report.json")
+    return report
+
+
+def build_report_payload(
+    result: Any,
+    analytics: AnalyticsReport,
+    scenario_description: str,
+    chart_paths: list[Path] | None = None,
+) -> ScenarioReport:
+    """Build a report DTO without writing files."""
+    bottleneck = _detect_bottleneck(analytics)
+    problem_stages = _collect_problem_stages(analytics)
+    recommendations = _generate_recommendations(analytics, bottleneck, problem_stages)
+    performance_insights = _generate_performance_insights(analytics)
+    return ScenarioReport(
         scenario_name=result.scenario_name,
         scenario_description=scenario_description,
         run_parameters={
@@ -73,17 +104,6 @@ def build_report(
         performance_insights=performance_insights,
         charts=[str(path) for path in chart_paths or []],
     )
-    csv_path = export_csv(analytics, output_path / "metrics.csv")
-    txt_path = export_text(summary, output_path / "summary.txt")
-    md_path = export_markdown(markdown_summary, output_path / "summary.md")
-    report.files = ReportFiles(
-        json=str(output_path / "report.json"),
-        csv=str(csv_path),
-        txt=str(txt_path),
-        md=str(md_path),
-    )
-    export_json(report, output_path / "report.json")
-    return report
 
 
 def build_comparison_report(

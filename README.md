@@ -1,96 +1,89 @@
 # Fabriq
 
-Fabriq — это модульное Python-приложение для дискретно-событийного моделирования
-производственной линии. Оно загружает JSON- или YAML-сценарий, строит
-валидированную модель производства, запускает движок симуляции, вычисляет
-метрики, экспортирует отчёты и создаёт SVG-графики.
+Fabriq — веб-приложение для дискретно-событийного моделирования производственных линий. Пользовательский контур построен на Next.js, React и TypeScript; сценарии, запуски и результаты хранятся в SQLite; расчёты выполняет существующий Python-движок через FastAPI.
+
+## Презентация
+
+- [Открыть HTML-презентацию](PREZA-WEB/index.html)
+- [Текст доклада на 15 минут](PREZA-WEB/DOKLAD.md)
+- После запуска `START-FABRIQ.bat` презентация доступна на `http://127.0.0.1:8080`.
 
 ## Архитектура
 
-Модули проекта:
-
-- `domain/`: общие сущности, перечисления и DTO
-- `scenario/`: загрузка конфигурации, валидация и построение сценариев
-- `engine/`: ядро дискретно-событийной симуляции
-- `analytics/`: метрики и логика сравнения
-- `reporting/`: экспорт отчётов в JSON/CSV/TXT
-- `visualization/`: генерация SVG-графиков
-- `app/`: CLI-точка входа
-
-Подробная документация находится в `docs/docs/`:
-
-- `architecture.md`: структура движка и правила выполнения
-- `event-flow.md`: жизненный цикл событий и условия остановки
-- `scenario-module.md`: формат конфигурации, валидация и сборщик сценариев
-- `integration-contract.md`: публичные DTO и контракты модулей
-
-## Запуск
-
-### Веб-интерфейс (рекомендуется)
-
-```bash
-pip install -r requirements.txt
-streamlit run app/ui.py
+```text
+Browser → Next.js REST layer → SQLite
+                         └──→ FastAPI → simulation engine
 ```
 
-### CLI
+- `web/` — сайт, REST API, авторизация, очередь расчётов и SQLite;
+- `python_service/` — HTTP-адаптер Python-движка;
+- `domain/`, `scenario/`, `engine/`, `analytics/` — модель и расчёты;
+- `reporting/`, `visualization/` — отчёты и SVG для CLI;
+- `app/main.py` — CLI;
+- `docs/` — документация Docusaurus.
 
-```bash
-python -m app.main --config configs/base_scenario.json
+## Локальный запуск
+
+### Windows: запуск одной командой
+
+Дважды щёлкните `START-FABRIQ.bat` или выполните его из консоли. Скрипт проверит версии Python и Node.js, установит зависимости, соберёт web-приложение и запустит API, сайт и презентацию. Логи и PID-файлы сохраняются в `.temp/`.
+
+```powershell
+.\START-FABRIQ.bat
+.\START-FABRIQ.bat status
+.\START-FABRIQ.bat stop
+.\START-FABRIQ.bat logs
 ```
 
+После успешного запуска BAT выводит статусы и все локальные ссылки, включая документацию на `http://127.0.0.1:3001/Fabriq/`.
 
-Результаты сохраняются в `results/<scenario_name>/`:
+### Ручной запуск
 
-* `report.json`
-* `metrics.csv`
-* `summary.txt`
-* `charts/queue_length.svg`
-* `charts/machine_utilization.svg`
-* `charts/batch_cycle_time.svg`
+Python API:
 
-При передаче нескольких конфигураций отчёт сравнения сохраняется в
-`results/comparison/`:
+```powershell
+py -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -m uvicorn python_service.main:app --host 127.0.0.1 --port 8000
+```
 
-* `comparison_report.json`
-* `comparison.csv`
-* `comparison_summary.txt`
+Web-приложение во втором терминале:
 
-Логи сохраняются в `logs/`.
+```powershell
+cd web
+npm ci
+npm run dev
+```
 
-## Сценарии
+Откройте `http://localhost:3000`. Первый зарегистрированный пользователь получает роль `admin`.
 
-Репозиторий включает три обязательных сценария:
+## Production
 
-* `configs/base_scenario.json`
-* `configs/high_load.json`
-* `configs/frequent_breakdowns.json`
+```powershell
+Copy-Item .env.example .env
+docker compose up -d --build
+```
 
-Правила конфигурации, которые важно учитывать:
-
-* JSON обязателен; YAML работает при установленном `PyYAML`.
-* `batches.route` обязателен, если линия имеет несколько входных этапов.
-* `queue_limit` и `buffer_capacity` должны быть неотрицательными целыми числами или `null`.
-* вероятности, такие как `breakdown_probability` и `reject_probability`, должны находиться в диапазоне `[0.0, 1.0]`.
+Compose запускает web-приложение, Python API и Caddy. SQLite, резервные копии и логи находятся в persistent volumes. Переменные окружения описаны в `.env.example` и `web/.env.example`.
 
 ## Тесты
 
-```bash
-python -m unittest discover -s tests
-python -m pytest -q
-python -m compileall app domain scenario engine analytics reporting visualization tests
+```powershell
+.venv\Scripts\python -m pytest -q
+cd web
+npm run typecheck
+npm run lint
+npm test
+npm run test:e2e
+npm run build
 ```
 
-## CI
+## Резервные копии
 
-GitHub Actions запускает Python CI при push и pull request в основные ветки
-проекта. Workflow компилирует Python-пакеты, запускает поиск `unittest`,
-выполняет `pytest`, прогоняет каждый сценарий `configs/*.json` через CLI,
-проверяет повторяемость движка с фиксированным seed и загружает артефакты
-`logs/` и `results/`.
-
-## Сайт-Деплой
-
-```bash
-https://rotorino-fabriq-appui-dev-j4pqil.streamlit.app/
+```powershell
+cd web
+npm run backup
+npm run backup:verify -- ./backups/<backup-file>.db
 ```
+
+Подробности: `docs/docs/web-application.md`, `docs/docs/python-api.md` и `docs/docs/deployment.md`.

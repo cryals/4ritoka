@@ -1,0 +1,85 @@
+services:
+  simulation:
+    build:
+      context: .
+      dockerfile: Dockerfile.python
+    environment:
+      FABRIQ_API_DOCS: ${FABRIQ_API_DOCS:-true}
+      FABRIQ_ALLOWED_ORIGINS: ${FABRIQ_PUBLIC_ORIGIN:-http://localhost}
+      FABRIQ_SIMULATION_TIMEOUT: ${FABRIQ_SIMULATION_TIMEOUT:-120}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+    volumes:
+      - fabriq_logs:/app/logs
+
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+      args:
+        FABRIQ_BASE_PATH: ${FABRIQ_BASE_PATH:-/fabriq}
+    depends_on:
+      simulation:
+        condition: service_healthy
+    environment:
+      FABRIQ_CONFIG_DIR: /app/configs
+      FABRIQ_DATABASE_PATH: /data/fabriq.db
+      FABRIQ_BACKUP_DIR: /backups
+      FABRIQ_BACKUP_INTERVAL_HOURS: ${FABRIQ_BACKUP_INTERVAL_HOURS:-24}
+      FABRIQ_PYTHON_API_URL: http://simulation:8000
+      FABRIQ_MAX_CONCURRENT_RUNS: ${FABRIQ_MAX_CONCURRENT_RUNS:-2}
+      FABRIQ_SECURE_COOKIES: ${FABRIQ_SECURE_COOKIES:-false}
+      FABRIQ_RETENTION_DAYS: ${FABRIQ_RETENTION_DAYS:-7}
+      NEXT_PUBLIC_BASE_PATH: ${FABRIQ_BASE_PATH:-/fabriq}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/fabriq/api/health').then(r=>{if(!r.ok)process.exit(1)})"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+    volumes:
+      - fabriq_data:/data
+      - fabriq_backups:/backups
+
+  caddy:
+    image: caddy:2-alpine
+    depends_on:
+      web:
+        condition: service_healthy
+    environment:
+      FABRIQ_DOMAIN: ${FABRIQ_DOMAIN:-localhost}
+    ports:
+      - "8088:80"
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./PREZA-WEB:/srv/preza:ro
+      - ./docs/build:/srv/docs:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  fabriq_data:
+  fabriq_backups:
+  fabriq_logs:
+  caddy_data:
+  caddy_config:

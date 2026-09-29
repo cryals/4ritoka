@@ -1,0 +1,44 @@
+http://{$FABRIQ_DOMAIN:localhost} {
+  encode zstd gzip
+
+  handle /.well-known/acme-challenge/* {
+    root * /srv/preza
+    file_server
+  }
+
+  redir / /fabriq 308
+
+  @prezaNoSlash path /preza
+  redir @prezaNoSlash /preza/ 308
+
+  @docsNoSlash path /docs
+  redir @docsNoSlash /docs/ 308
+
+  handle_path /preza* {
+    root * /srv/preza
+    file_server
+  }
+
+  handle_path /docs* {
+    root * /srv/docs
+    file_server
+  }
+
+  handle_path /python-api* {
+    reverse_proxy simulation:8000
+  }
+
+  handle /fabriq* {
+    reverse_proxy web:3000
+  }
+
+  handle {
+    redir /{path} /fabriq{path} 308
+  }
+  header {
+    X-Content-Type-Options nosniff
+    Referrer-Policy strict-origin-when-cross-origin
+    X-Frame-Options DENY
+    Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  }
+}
