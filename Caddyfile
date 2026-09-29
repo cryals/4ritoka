@@ -22,6 +22,7 @@ http://{$FABRIQ_DOMAIN:localhost} {
 
   handle_path /docs* {
     root * /srv/docs
+    try_files {path} {path}.html {path}/index.html
     file_server
   }
 
