@@ -402,6 +402,7 @@ button.list-row:hover {
 }
 .auth-intro {
   position: relative;
+  container-type: inline-size;
   min-height: 520px;
   display: flex;
   flex-direction: column;
@@ -414,6 +415,7 @@ button.list-row:hover {
 .auth-intro::after {
   content: "";
   position: absolute;
+  z-index: 0;
   right: -12vw;
   bottom: -22vw;
   width: 44vw;
@@ -425,13 +427,23 @@ button.list-row:hover {
     0 0 0 calc(4vw + 1px) #fff,
     0 0 0 8vw var(--ink),
     0 0 0 calc(8vw + 1px) #fff;
+  opacity: 0.72;
+  pointer-events: none;
 }
 .auth-word {
   position: relative;
   z-index: 1;
-  font: 500 clamp(70px, 13vw, 210px)/0.78 var(--display);
-  letter-spacing: -0.08em;
+  max-width: 100%;
+  font: 500 clamp(64px, 18cqi, 190px)/0.86 var(--display);
+  letter-spacing: -0.07em;
   text-transform: uppercase;
+}
+.auth-intro > p {
+  position: relative;
+  z-index: 1;
+}
+.auth-intro > p:last-child {
+  max-width: min(38rem, 68%);
 }
 .auth-panel {
   display: grid;
@@ -672,7 +684,10 @@ button.list-row:hover {
     flex-direction: column;
   }
   .auth-word {
-    font-size: 26vw;
+    font-size: clamp(58px, 18cqi, 104px);
+  }
+  .auth-intro > p:last-child {
+    max-width: 78%;
   }
 }
 
