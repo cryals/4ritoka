@@ -75,6 +75,12 @@ visualization/
 
 **Применение:** Визуализация темпа производства и выявление замедлений.
 
+### 7. Временная шкала событий
+
+**Функция:** `build_timeline(event_log, path)`
+
+Показывает последовательность ключевых событий расчёта по модельному времени.
+
 ## Основная функция
 
 ### `build_charts(result, analytics, output_dir) -> list[Path]`
@@ -102,7 +108,8 @@ chart_paths = build_charts(result, analytics, "results/charts")
 #   Path("results/charts/batch_cycle_time.svg"),
 #   Path("results/charts/breakdown_distribution.svg"),
 #   Path("results/charts/stage_comparison.svg"),
-#   Path("results/charts/throughput_over_time.svg")
+#   Path("results/charts/throughput_over_time.svg"),
+#   Path("results/charts/event_timeline.svg")
 # ]
 ```
 
@@ -116,8 +123,8 @@ chart_paths = build_charts(result, analytics, "results/charts")
 
 - Автоматическое масштабирование под диапазон данных.
 - Оси с подписями.
-- Размер по умолчанию: 720×360 пикселей.
-- Синий цвет линии (`#2f80ed`).
+- Размер по умолчанию: 840×400 пикселей.
+- Серии используют палитру `#1f77b4`, `#d62728`, `#2ca02c`, `#ff7f0e`, `#9467bd`, `#17becf`.
 
 **Формат входных данных:**
 
@@ -133,8 +140,8 @@ chart_paths = build_charts(result, analytics, "results/charts")
 
 - Автоматическое масштабирование по максимальному значению.
 - Подписанные столбцы.
-- Размер по умолчанию: 720×360 пикселей.
-- Зелёный цвет столбцов (`#27ae60`).
+- Размер по умолчанию: 840×400 пикселей.
+- Столбцы циклически используют синюю, зелёную, красную, фиолетовую и оранжевую серии.
 
 **Формат входных данных:**
 
@@ -167,10 +174,10 @@ chart_paths = build_charts(result, analytics, "results/charts")
 
 ```python
 # В _bar_svg
-fill='#27ae60'  # Зелёные столбцы
+BAR_COLORS = ["#1f77b4", "#2ca02c", "#d62728", "#9467bd", "#ff7f0e"]
 
 # В _line_svg
-stroke='#2f80ed'  # Синяя линия
+LINE_COLORS = ["#1f77b4", "#d62728", "#2ca02c", "#ff7f0e", "#9467bd", "#17becf"]
 
 # В _stage_comparison_chart
 fill='#e74c3c'  # Красный цвет для времени ожидания
@@ -182,8 +189,8 @@ fill='#3498db'  # Синий цвет для времени обработки
 Измените значения ширины и высоты:
 
 ```python
-width = 720
-height = 360
+width = 840
+height = 400
 ```
 
 ### Добавление нового типа графика
@@ -273,7 +280,7 @@ webbrowser.open(str(chart_paths[0]))
 
 См. файл `tests/test_reporting.py`:
 
-- `test_charts_generation_creates_all_required_files` — проверяет создание всех шести обязательных графиков.
+- `test_charts_generation_creates_all_required_files` — проверяет создание полного набора графиков и timeline.
 
 ## Планы по развитию
 

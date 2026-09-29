@@ -5,33 +5,41 @@ title: Проверка и тесты
 
 # Проверка и тесты
 
-Тесты разделены по зонам ответственности:
+Проверки разделены по зонам ответственности:
 
 - `tests/test_engine.py` - ядро моделирования;
 - `tests/test_scenario.py` - модуль сценариев и предметная модель;
 - `tests/test_analytics.py` - аналитика и сравнение сценариев;
 - `tests/test_reporting.py` - экспорт и comparison-report;
-- `tests/test_integration.py` - полный сквозной pipeline.
+- `tests/test_integration.py` — полный Python pipeline;
+- `tests/test_api.py` — FastAPI-контракт и конкурентные запросы;
+- `web/lib/*.test.ts` — SQLite и Zod unit tests;
+- `web/e2e/app.spec.ts` — пользовательский сценарий в браузере.
 
-Запуск:
-
-```bash
-python -m unittest discover -s tests -q
-```
-
-Дополнительная проверка синтаксиса:
-
-```bash
-python -m compileall app domain scenario engine analytics reporting visualization tests
-```
-
-Pytest-проверка:
+Полная Python-проверка:
 
 ```bash
 python -m pytest -q
+python -m compileall app domain scenario engine analytics reporting visualization python_service tests
 ```
 
-Если `pytest` не установлен в окружении, базовой проверкой остается `unittest`.
+Web-проверка:
+
+```bash
+cd web
+npm run typecheck
+npm run lint
+npm test
+npm run test:e2e
+npm run build
+```
+
+Документация:
+
+```bash
+cd docs
+npm run build
+```
 
 Проверка полного запуска:
 
@@ -44,7 +52,7 @@ python -m app.main --config configs/base_scenario.json configs/high_load.json co
 
 ## GitHub Actions
 
-Workflow `.github/workflows/ci.yml` запускается на push и pull request для веток `Dev`, `develop`, `main` и `master`. Он рассчитан на расширение проекта:
+Workflow `.github/workflows/ci.yml` запускается на push и pull request для веток `Dev`, `develop`, `main` и `master`:
 
 - ставит зависимости из `requirements.txt`;
 - компилирует найденные Python-пакеты и `tests`;
@@ -52,7 +60,10 @@ Workflow `.github/workflows/ci.yml` запускается на push и pull req
 - запускает `pytest`;
 - прогоняет все сценарии из `configs/*.json` через CLI;
 - проверяет повторяемость ядра с фиксированным seed;
-- сохраняет `logs/` и `results/` как артефакты workflow.
+- сохраняет `logs/` и `results/` как артефакты workflow;
+- проверяет TypeScript, ESLint, Vitest и production build;
+- собирает Docusaurus;
+- валидирует `docker compose config`.
 
 ## Что покрывают тесты
 
@@ -112,5 +123,5 @@ Workflow `.github/workflows/ci.yml` запускается на push и pull req
 - партии корректно генерируются в режимах `fixed`, `template`, `equal_intervals`, `random_intervals`;
 - генерация повторяема при фиксированном `seed`;
 - при нескольких входных этапах требуется явный маршрут партии;
-- доступны три обязательных сценария;
+- доступны 15 preset-конфигураций, включая базовые smoke-сценарии;
 - ядро получает валидные `ProductionLine`, `Batch` и `ScenarioConfig`.

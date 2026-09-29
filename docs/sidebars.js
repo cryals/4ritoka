@@ -3,21 +3,38 @@
 const sidebars = {
   coreSidebar: [
     'index',
-    'USER_GUIDE',
-    'web-application',
-    'python-api',
-    'deployment',
-    'presentation',
-    'DEVELOPER_GUIDE',
-    'architecture',
-    'scenario-module',
-    'analytics_module',
-    'visualization_module',
-    'event-flow',
-    'integration-contract',
-    'simulation-result',
-    'full-application',
-    'testing',
+    {
+      type: 'category',
+      label: 'Начало работы',
+      collapsed: false,
+      items: ['USER_GUIDE', 'presentation'],
+    },
+    {
+      type: 'category',
+      label: 'Web-платформа',
+      collapsed: false,
+      items: ['web-application', 'api-reference', 'configuration'],
+    },
+    {
+      type: 'category',
+      label: 'Движок моделирования',
+      items: [
+        'architecture',
+        'scenario-module',
+        'event-flow',
+        'analytics_module',
+        'simulation-result',
+        'visualization_module',
+        'integration-contract',
+        'full-application',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Разработка и эксплуатация',
+      collapsed: false,
+      items: ['DEVELOPER_GUIDE', 'testing', 'deployment', 'operations'],
+    },
   ],
 };
 

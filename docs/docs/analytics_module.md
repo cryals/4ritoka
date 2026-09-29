@@ -16,9 +16,9 @@ analytics/
 
 ## Основные функции
 
-### `calculate_analytics(result: SimulationResult) -> dict`
+### `calculate_analytics(result: SimulationResult) -> AnalyticsReport`
 
-Основная точка входа для расчёта аналитики. Принимает результат симуляции и возвращает словарь с полным набором аналитических данных.
+Основная точка входа для расчёта аналитики. Принимает результат симуляции и возвращает typed dataclass с mapping-like API. Для JSON используйте `analytics.to_dict()`.
 
 **Возвращает:**
 
@@ -34,7 +34,13 @@ analytics/
         "rejected_units": int,
         "throughput": float,
         "total_breakdowns": int,
-        "total_repair_time": float
+        "total_repair_time": float,
+        "completion_rate": float,
+        "rejection_rate": float,
+        "average_cycle_time": float,
+        "average_wait_time": float,
+        "total_busy_time": float,
+        "total_idle_time": float
     },
     "stages": [StageMetrics, ...],
     "machines": [MachineMetrics, ...],
@@ -74,7 +80,11 @@ analytics/
 * **rejected_batches** — количество партий, отклонённых из-за проблем с качеством.
 * **output_units** — общее количество произведённых единиц продукции (сумма размеров завершённых партий).
 * **rejected_units** — общее количество забракованных единиц продукции (сумма размеров отклонённых партий).
-* **throughput** — производительность системы (output_units / simulation_time).
+* **throughput** — производительность системы (`output_units / simulation_time`).
+* **completion_rate** — доля завершённых партий.
+* **rejection_rate** — доля отбракованных партий.
+* **average_cycle_time** — среднее полное время партии в системе.
+* **average_wait_time** — среднее ожидание партии в очередях.
 * **total_breakdowns** — суммарное количество поломок оборудования в системе.
 * **total_repair_time** — общее время, затраченное на ремонт оборудования.
 
@@ -187,8 +197,8 @@ for row in comparison:
 
 * Пустые списки партий возвращают нулевые значения метрик.
 * Деление на ноль предотвращается с помощью защитных конструкций вида `max(value, 1)`.
-* Отсутствующие поля заменяются значениями по умолчанию (`0` или пустые списки).
-* Некорректные типы данных перехватываются на этапе агрегации.
+* Пустые временные ряды дают нулевые средние и максимумы.
+* Некорректная структура должна быть отклонена сценарным слоем до запуска аналитики.
 
 ## Тестирование
 

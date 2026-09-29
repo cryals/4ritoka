@@ -27,7 +27,7 @@ title: Презентация и доклад
 - Fabriq Web: `http://127.0.0.1:3000`;
 - Python API: `http://127.0.0.1:8000`;
 - Swagger: `http://127.0.0.1:8000/docs`;
-- документацию: `http://127.0.0.1:3001/Fabriq/`;
+- документацию: `http://127.0.0.1:3001/docs/`;
 - презентацию: `http://127.0.0.1:8080`.
 
 Состояние процессов и журналы доступны командами:
@@ -47,6 +47,8 @@ title: Презентация и доклад
 - `F` — полноэкранный режим.
 
 Каждый слайд имеет адрес вида `http://127.0.0.1:8080/#slide-N`.
+
+Production-версия доступна на [https://ritoka.stopco.ru/preza/](https://ritoka.stopco.ru/preza/), а текст выступления — на [https://ritoka.stopco.ru/preza/DOKLAD.md](https://ritoka.stopco.ru/preza/DOKLAD.md).
 
 ## Интерпретация теста нагрузки
 

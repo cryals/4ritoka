@@ -8,6 +8,13 @@ Fabriq — веб-приложение для дискретно-событий�
 - [Текст доклада на 15 минут](PREZA-WEB/DOKLAD.md)
 - После запуска `START-FABRIQ.bat` презентация доступна на `http://127.0.0.1:8080`.
 
+Production:
+
+- приложение: [ritoka.stopco.ru/fabriq](https://ritoka.stopco.ru/fabriq);
+- презентация: [ritoka.stopco.ru/preza](https://ritoka.stopco.ru/preza/);
+- документация: [ritoka.stopco.ru/docs](https://ritoka.stopco.ru/docs/);
+- Swagger: [ritoka.stopco.ru/python-api/docs](https://ritoka.stopco.ru/python-api/docs).
+
 ## Архитектура
 
 ```text
@@ -35,7 +42,7 @@ Browser → Next.js REST layer → SQLite
 .\START-FABRIQ.bat logs
 ```
 
-После успешного запуска BAT выводит статусы и все локальные ссылки, включая документацию на `http://127.0.0.1:3001/Fabriq/`.
+После успешного запуска BAT выводит статусы и все локальные ссылки, включая документацию на `http://127.0.0.1:3001/docs/`.
 
 ### Ручной запуск
 
@@ -55,7 +62,7 @@ npm ci
 npm run dev
 ```
 
-Откройте `http://localhost:3000`. Первый зарегистрированный пользователь получает роль `admin`.
+Откройте `http://127.0.0.1:3000`. Первый зарегистрированный пользователь получает роль `admin`.
 
 ## Production
 
@@ -86,4 +93,11 @@ npm run backup
 npm run backup:verify -- ./backups/<backup-file>.db
 ```
 
-Подробности: `docs/docs/web-application.md`, `docs/docs/python-api.md` и `docs/docs/deployment.md`.
+Полная документация:
+
+- [`docs/docs/USER_GUIDE.md`](docs/docs/USER_GUIDE.md) — пользовательский путь;
+- [`docs/docs/web-application.md`](docs/docs/web-application.md) — web-архитектура;
+- [`docs/docs/api-reference.md`](docs/docs/api-reference.md) — application REST API;
+- [`docs/docs/configuration.md`](docs/docs/configuration.md) — переменные окружения;
+- [`docs/docs/deployment.md`](docs/docs/deployment.md) — deployment;
+- [`docs/docs/operations.md`](docs/docs/operations.md) — backup, retention и диагностика.

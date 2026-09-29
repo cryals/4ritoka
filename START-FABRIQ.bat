@@ -348,7 +348,7 @@ echo [ONLINE] Presentation  PID: !PREZA_PID!
 echo          http://127.0.0.1:8080
 echo.
 echo [ONLINE] Documentation PID: !DOCS_PID!
-echo          http://127.0.0.1:3001/Fabriq/
+echo          http://127.0.0.1:3001/docs/
 echo.
 echo [LOGS]   %TEMP_DIR%
 echo ============================================================
@@ -363,7 +363,7 @@ echo ============================================================
 call :print_status "Python API" "http://127.0.0.1:8000/health" "python-api"
 call :print_status "Fabriq Web" "http://127.0.0.1:3000" "web"
 call :print_status "Presentation" "http://127.0.0.1:8080" "presentation"
-call :print_status "Documentation" "http://127.0.0.1:3001/Fabriq/" "docs"
+call :print_status "Documentation" "http://127.0.0.1:3001/docs/" "docs"
 echo.
 echo Logs: %TEMP_DIR%
 echo ============================================================

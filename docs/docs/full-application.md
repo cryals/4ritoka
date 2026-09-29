@@ -5,21 +5,33 @@ title: Полное приложение
 
 # Полное приложение
 
-Проект собран как единое Python-приложение с модульной архитектурой:
+Fabriq состоит из web-платформы и независимого Python-контура. Браузер никогда не вызывает движок напрямую: Next.js отвечает за пользователей, данные и очередь, а FastAPI предоставляет узкий вычислительный контракт.
 
 ```text
-app/            CLI-точка входа
+web/            Next.js UI, REST API, SQLite и очередь
+python_service/ FastAPI-адаптер
+app/            Python CLI-точка входа
 domain/         общие сущности, enum и DTO
 scenario/       загрузка JSON/YAML, валидация и сборка сценариев
 engine/         дискретно-событийное ядро
 analytics/      расчет метрик
 reporting/      экспорт JSON, CSV и TXT
 visualization/  SVG-графики
-configs/        три демонстрационных сценария
+configs/        15 встроенных сценариев
 tests/          unit- и интеграционные тесты
+PREZA-WEB/      автономная презентация и доклад
+docs/           Docusaurus-документация
 ```
 
-## Запуск
+## Основной web-запуск
+
+```powershell
+.\START-FABRIQ.bat
+```
+
+Для production используется `docker compose up -d --build`. Подробности приведены в [развёртывании](./deployment.md).
+
+## CLI-запуск
 
 ```bash
 python -m app.main --config configs/base_scenario.json
@@ -34,11 +46,7 @@ python -m app.main --config \
   configs/frequent_breakdowns.json
 ```
 
-Доступные сценарии:
-
-- `configs/base_scenario.json`;
-- `configs/high_load.json`;
-- `configs/frequent_breakdowns.json`.
+CLI принимает любой валидный JSON/YAML-файл. Готовые конфигурации из `configs/` также отображаются как presets в web-интерфейсе.
 
 Поддерживаемые форматы конфигураций:
 
@@ -71,25 +79,21 @@ python -m app.main --config \
 
 Логи приложения и ядра сохраняются в `logs/`.
 
-## Что изменилось сегодня
+## Гарантии текущей реализации
 
-В текущей версии приложение дополнительно поддерживает:
+Приложение поддерживает:
 
 - корректный публичный контракт `SimulationResult` с разделением `events` и `event_log`;
 - защиту движка от зависания на нулевых длительностях обработки;
 - несколько входных этапов линии при явном маршруте партии;
 - автоматическое сравнение сценариев на уровне CLI и reporting;
 - расширенные отчеты с bottleneck, problem stages и comparison summary.
+- хранение snapshot сценария внутри каждого запуска;
+- восстановление незавершённых задач после перезапуска;
+- разграничение пользовательских данных;
+- автоматические backup и retention;
+- экспорт web-результата в JSON, CSV и Markdown.
 
 ## Проверка
 
-```bash
-python -m unittest discover -s tests
-python -m compileall app domain scenario engine analytics reporting visualization tests
-```
-
-Отдельная проверка сценарного слоя:
-
-```bash
-python -m unittest tests.test_scenario
-```
+Полный набор команд описан в разделе [«Проверка и тесты»](./testing.md).

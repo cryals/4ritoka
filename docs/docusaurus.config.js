@@ -2,14 +2,14 @@
 
 const config = {
   title: 'Fabriq',
-  tagline: 'Документация ядра моделирования производственных процессов',
+  tagline: 'Техническая документация платформы моделирования производства',
   favicon: 'img/favicon.ico',
 
   url: process.env.DOCS_SITE_URL || 'https://ritoka.stopco.ru',
-  baseUrl: process.env.DOCS_BASE_URL || '/Fabriq/',
+  baseUrl: process.env.DOCS_BASE_URL || '/docs/',
 
-  organizationName: 'Rotorino',
-  projectName: 'Fabriq',
+  organizationName: 'cryals',
+  projectName: '4ritoka',
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
@@ -48,10 +48,20 @@ const config = {
           type: 'docSidebar',
           sidebarId: 'coreSidebar',
           position: 'left',
-          label: 'Ядро моделирования',
+          label: 'Документация',
         },
         {
-          href: 'https://github.com/Rotorino/Fabriq',
+          href: 'https://ritoka.stopco.ru/fabriq',
+          label: 'Приложение',
+          position: 'right',
+        },
+        {
+          href: 'https://ritoka.stopco.ru/preza/',
+          label: 'Презентация',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/cryals/4ritoka',
           label: 'GitHub',
           position: 'right',
         },
@@ -64,12 +74,12 @@ const config = {
           title: 'Разделы',
           items: [
             {
-              label: 'Обзор ядра',
+              label: 'Обзор системы',
               to: '/',
             },
             {
-              label: 'Контракт интеграции',
-              to: '/integration-contract',
+              label: 'Эксплуатация',
+              to: '/operations',
             },
           ],
         },
@@ -78,12 +88,20 @@ const config = {
           items: [
             {
               label: 'Репозиторий',
-              href: 'https://github.com/Rotorino/Fabriq',
+              href: 'https://github.com/cryals/4ritoka',
+            },
+            {
+              label: 'Рабочее приложение',
+              href: 'https://ritoka.stopco.ru/fabriq',
+            },
+            {
+              label: 'Презентация',
+              href: 'https://ritoka.stopco.ru/preza/',
             },
           ],
         },
       ],
-      copyright: `Fabriq. Документация ядра моделирования.`,
+      copyright: `Fabriq — документация web-платформы и движка моделирования.`,
     },
     prism: {
       additionalLanguages: ['python'],
